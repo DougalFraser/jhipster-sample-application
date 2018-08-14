@@ -1,0 +1,33 @@
+#font: Consolas
+
+entity Job {
+	jobName String
+    startDate Instant
+    endDate Instant
+}
+
+entity Client {
+	clientName String
+}
+
+entity Timesheet {
+	day LocalDate
+    hours String
+}
+
+relationship OneToMany {
+	Client{jobs} to Job{client}
+	Timesheet to Job
+}
+
+
+// Set pagination options
+paginate JobHistory, Employee with infinite-scroll
+paginate Job with pagination
+
+dto * with mapstruct
+
+// Set service options to all except few
+service all with serviceImpl except Job
+// Set an angular suffix
+angularSuffix * with mySuffix
